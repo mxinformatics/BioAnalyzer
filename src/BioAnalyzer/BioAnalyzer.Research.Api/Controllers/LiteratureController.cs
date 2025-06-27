@@ -9,10 +9,24 @@ namespace BioAnalyzer.Research.Api.Controllers;
 public class LiteratureController(ILiteratureSearchService literatureSearchService) : ControllerBase
 {
 
-    [HttpGet(Name = "Search")]
+    
+    [HttpGet(Name = "SearchLiterature")]
     public async Task<EntrezSearchResult> Search(string query)
     {
         var result = await literatureSearchService.SearchLiteratureAsync(query).ConfigureAwait(false);
         return result;
     }
+    
+    [HttpGet("summary", Name = "GetLiteratureSummary")]
+    public async Task<IList<EntrezSummaryResult>> GetSummary([FromQuery] IList<string> ids)
+    {
+        if (ids == null || !ids.Any())
+        {
+            return new List<EntrezSummaryResult>();
+        }
+        
+        var result = await literatureSearchService.GetLiteratureSummaries(ids).ConfigureAwait(false);
+        return result;
+    }
+    
 }

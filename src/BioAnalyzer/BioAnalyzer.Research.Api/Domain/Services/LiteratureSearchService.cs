@@ -12,4 +12,10 @@ public class LiteratureSearchService(IEntrezClient client) : ILiteratureSearchSe
     {
         return await client.LiteratureSearchAsync(query).ConfigureAwait(false);
     }
+
+    public async Task<IList<EntrezSummaryResult>> GetLiteratureSummaries(IList<string> uids)
+    {
+        var response = await client.LiteratureSummaryAsync(uids).ConfigureAwait(false);
+        return response.Results;
+    }
 }

@@ -8,4 +8,5 @@ namespace BioAnalyzer.Research.Api.Domain.Services;
 public interface ILiteratureSearchService
 {
     Task<EntrezSearchResult> SearchLiteratureAsync(string query);
+    Task<IList<EntrezSummaryResult>> GetLiteratureSummaries(IList<string> uids);
 }
