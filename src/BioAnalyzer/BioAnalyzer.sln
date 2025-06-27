@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.AppHost", "BioAnalyzer.AppHost\BioAnalyzer.AppHost.csproj", "{5AE81E85-6EEC-45EB-BA74-3D8A58DB643E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.ServiceDefaults", "BioAnalyzer.ServiceDefaults\BioAnalyzer.ServiceDefaults.csproj", "{3F5E4A79-0B89-4513-93F9-8C5C895FFC45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.Research.Api", "BioAnalyzer.Research.Api\BioAnalyzer.Research.Api.csproj", "{016F5C27-AA42-437B-A556-49B4AB9B0AC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AE81E85-6EEC-45EB-BA74-3D8A58DB643E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE81E85-6EEC-45EB-BA74-3D8A58DB643E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE81E85-6EEC-45EB-BA74-3D8A58DB643E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE81E85-6EEC-45EB-BA74-3D8A58DB643E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5E4A79-0B89-4513-93F9-8C5C895FFC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5E4A79-0B89-4513-93F9-8C5C895FFC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5E4A79-0B89-4513-93F9-8C5C895FFC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5E4A79-0B89-4513-93F9-8C5C895FFC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016F5C27-AA42-437B-A556-49B4AB9B0AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016F5C27-AA42-437B-A556-49B4AB9B0AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016F5C27-AA42-437B-A556-49B4AB9B0AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016F5C27-AA42-437B-A556-49B4AB9B0AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
