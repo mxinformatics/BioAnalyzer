@@ -15,6 +15,9 @@ public static class ResearchApiDependencies
             });
 
         services.AddHttpClient<IEntrezClient, EntrezClient>();
+
+        services.AddHttpClient<INcbiClient, NcbiClient>();
+        
         services.AddScoped<ILiteratureSearchService, LiteratureSearchService>();
         return services;
     }

@@ -20,7 +20,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     [HttpGet("summary", Name = "GetLiteratureSummary")]
     public async Task<IList<EntrezSummaryResult>> GetSummary([FromQuery] IList<string> ids)
     {
-        if (ids == null || !ids.Any())
+        if (!ids.Any())
         {
             return new List<EntrezSummaryResult>();
         }
@@ -29,4 +29,10 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
         return result;
     }
     
+    [HttpGet("abstract", Name = "GetLiteratureAbstract")]
+    public async Task<ArticleAbstract> GetAbstract([FromQuery] string pmcId)
+    {
+        var articleAbstract = await literatureSearchService.GetArticleAbstractAsync(pmcId).ConfigureAwait(false); 
+        return articleAbstract;
+    }
 }

@@ -9,4 +9,6 @@ public interface ILiteratureSearchService
 {
     Task<EntrezSearchResult> SearchLiteratureAsync(string query);
     Task<IList<EntrezSummaryResult>> GetLiteratureSummaries(IList<string> uids);
+    
+    Task<ArticleAbstract> GetArticleAbstractAsync(string pmCid);
 }

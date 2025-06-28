@@ -6,7 +6,7 @@ namespace BioAnalyzer.Research.Api.Domain.Services;
 /// <summary>
 /// Implementation of the service for searching literature in the Entrez database.
 /// </summary>
-public class LiteratureSearchService(IEntrezClient client) : ILiteratureSearchService
+public class LiteratureSearchService(IEntrezClient client, INcbiClient ncbiClient) : ILiteratureSearchService
 {
     public async Task<EntrezSearchResult> SearchLiteratureAsync(string query)
     {
@@ -17,5 +17,16 @@ public class LiteratureSearchService(IEntrezClient client) : ILiteratureSearchSe
     {
         var response = await client.LiteratureSummaryAsync(uids).ConfigureAwait(false);
         return response.Results;
+    }
+
+    public async Task<ArticleAbstract> GetArticleAbstractAsync(string pmCid)
+    {
+        var response = await ncbiClient.GetArticleAsync(pmCid).ConfigureAwait(false);
+        return new ArticleAbstract
+        {
+            Title = response.Title,
+            Description = response.Description,
+        };
+        
     }
 }
