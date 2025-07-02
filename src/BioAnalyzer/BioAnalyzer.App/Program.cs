@@ -1,14 +1,16 @@
 using BioAnalyzer.App.Components;
 using BioAnalyzer.App.Infrastructure;
+using BioAnalyzer.App.State;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 // Add services to the container.
-builder.Services.AddRazorComponents();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 builder.Services.AddBioAnalyzerAppDependencies(builder.Configuration);
-
+builder.Services.AddScoped<ApplicationState>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +27,7 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();

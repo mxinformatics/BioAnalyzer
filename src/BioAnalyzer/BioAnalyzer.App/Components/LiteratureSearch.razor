@@ -1,3 +1,5 @@
+@rendermode InteractiveServer
+
 <h3>LiteratureSearch</h3>
 
 <form method="post" data-enhance @onsubmit="OnSubmit" @formname="literature-search-form">
@@ -10,7 +12,22 @@
     </div>
 
  
- <div>
-     <button type="submit" class="btn btn-outline-primary ms-1">Search</button>
- </div>
- </form>
+    <div>
+        <button type="submit" class="btn btn-outline-primary ms-1">Search</button>
+    </div>
+</form>
+
+<div id="searchResults">
+    @if (LiteratureReferences.Any())
+    {
+        foreach (var reference in LiteratureReferences)
+        {
+            <div class="literature-reference">
+                <h4>@reference.Title</h4>
+                <p><strong>Id:</strong> @reference.Id</p>
+                <p><strong>PMC Id:</strong> @reference.PmcId</p>
+                <p><strong>DOI:</strong> @reference.Doi</p>
+            </div>
+        }
+    }
+</div>
