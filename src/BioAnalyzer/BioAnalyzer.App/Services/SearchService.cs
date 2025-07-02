@@ -27,6 +27,9 @@ public class SearchService(IResearchApiClient researchApiClient) : ISearchServic
         
         
     }
-    
-    
+
+    public async Task<LiteratureAbstract> GetAbstract(string pmcId)
+    {
+        return await researchApiClient.GetLiteratureAbstract(pmcId).ConfigureAwait(false);
+    }
 }

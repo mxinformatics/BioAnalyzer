@@ -1,4 +1,5 @@
 using BioAnalyzer.App.Contracts.Clients;
+using BioAnalyzer.App.Models;
 using BioAnalyzer.App.Models.ResearchApi;
 
 
@@ -26,6 +27,17 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
             throw new InvalidOperationException("Response content is null.");
         }
 
+        return result;
+    }
+
+    public async Task<LiteratureAbstract> GetLiteratureAbstract(string pmcId)
+    {
+        var requestUri = $"/literature/abstract?pmcId={pmcId}";
+        var result = await httpClient.GetFromJsonAsync<LiteratureAbstract>(requestUri).ConfigureAwait(false);
+        if (result == null)
+        {
+            throw new InvalidOperationException("Response content is null.");
+        }
         return result;
     }
 }

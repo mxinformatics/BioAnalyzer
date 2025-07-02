@@ -18,16 +18,23 @@
 </form>
 
 <div id="searchResults">
+    <AbstractPopup LiteratureReference="_selectedLiteratureReference"></AbstractPopup>
     @if (LiteratureReferences.Any())
     {
         foreach (var reference in LiteratureReferences)
         {
             <div class="literature-reference">
-                <h4>@reference.Title</h4>
-                <p><strong>Id:</strong> @reference.Id</p>
-                <p><strong>PMC Id:</strong> @reference.PmcId</p>
-                <p><strong>DOI:</strong> @reference.Doi</p>
+                <ErrorBoundary>
+                    <ChildContent>
+                        <LiteratureReferenceCard LitReference="reference" AbstractQuickViewClicked="ShowAbstractPopup"></LiteratureReferenceCard>
+                    </ChildContent>
+                    <ErrorContent>
+                        <p>Invalid Literature Reference</p>
+                    </ErrorContent>
+                </ErrorBoundary>
+
             </div>
+
         }
     }
 </div>

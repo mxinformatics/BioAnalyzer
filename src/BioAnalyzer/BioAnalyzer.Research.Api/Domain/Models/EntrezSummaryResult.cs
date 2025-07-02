@@ -10,6 +10,7 @@ public class EntrezSummaryResult
     public string Doi { get; set; } = string.Empty;
     public void SetPmcId(string pmcId)
     {
-       PmcId = pmcId.Replace("pmc", "");
+       PmcId = pmcId.Replace("PMC", "").Replace("pmc", "");
+       
     }
 }
