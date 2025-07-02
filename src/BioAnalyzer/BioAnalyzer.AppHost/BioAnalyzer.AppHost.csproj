@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BioAnalyzer.App\BioAnalyzer.App.csproj" />
       <ProjectReference Include="..\BioAnalyzer.Research.Api\BioAnalyzer.Research.Api.csproj" />
     </ItemGroup>
 

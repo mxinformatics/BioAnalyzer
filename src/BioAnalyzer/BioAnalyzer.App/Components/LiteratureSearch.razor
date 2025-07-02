@@ -1,0 +1,40 @@
+@rendermode InteractiveServer
+
+<h3>LiteratureSearch</h3>
+
+<form method="post" data-enhance @onsubmit="OnSubmit" @formname="literature-search-form">
+    <AntiforgeryToken/>
+    <div class="row mb-3">
+        <label for="searchTerm" class="col-md-3 col-form-label">Search Term:</label>
+        <div class="col-md-8">
+            <InputText id="searchTerm" class="form-control col-md-8" @bind-Value="@SearchCriteria.SearchTerm" placeholder="Enter search term"></InputText>
+        </div>
+    </div>
+
+ 
+    <div>
+        <button type="submit" class="btn btn-outline-primary ms-1">Search</button>
+    </div>
+</form>
+
+<div id="searchResults">
+    <AbstractPopup LiteratureReference="_selectedLiteratureReference"></AbstractPopup>
+    @if (LiteratureReferences.Any())
+    {
+        foreach (var reference in LiteratureReferences)
+        {
+            <div class="literature-reference">
+                <ErrorBoundary>
+                    <ChildContent>
+                        <LiteratureReferenceCard LitReference="reference" AbstractQuickViewClicked="ShowAbstractPopup"></LiteratureReferenceCard>
+                    </ChildContent>
+                    <ErrorContent>
+                        <p>Invalid Literature Reference</p>
+                    </ErrorContent>
+                </ErrorBoundary>
+
+            </div>
+
+        }
+    }
+</div>

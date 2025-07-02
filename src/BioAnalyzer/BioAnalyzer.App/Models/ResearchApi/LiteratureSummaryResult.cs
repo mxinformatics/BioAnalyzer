@@ -1,6 +1,6 @@
-namespace BioAnalyzer.Research.Api.Domain.Models;
+namespace BioAnalyzer.App.Models.ResearchApi;
 
-public class EntrezSummaryResult
+public class LiteratureSummaryResult
 {
     public string Uid { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
@@ -8,9 +8,4 @@ public class EntrezSummaryResult
     public string PmcId { get; set; } = string.Empty;
     
     public string Doi { get; set; } = string.Empty;
-    public void SetPmcId(string pmcId)
-    {
-       PmcId = pmcId.Replace("PMC", "").Replace("pmc", "");
-       
-    }
 }

@@ -5,4 +5,11 @@ var researchApi = builder
     //.WithHttpEndpoint(env: "RESEARCH_API_PORT")
     .WithExternalHttpEndpoints();
 
+builder.AddProject<Projects.BioAnalyzer_App>("researchApp")
+    .WithReference(researchApi)
+    .WaitFor(researchApi)
+    //.WithHttpEndpoint(env: "RESEARCH_APP_PORT")
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
+
 builder.Build().Run();

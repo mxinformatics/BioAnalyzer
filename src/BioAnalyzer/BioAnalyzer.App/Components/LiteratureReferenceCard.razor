@@ -1,0 +1,11 @@
+<div>
+    <h4>@LitReference.Title</h4>
+    <p><strong>Id:</strong> @LitReference.Id</p>
+    <p><strong>PMC Id:</strong> @LitReference.PmcId</p>
+    <p><strong>DOI:</strong> @LitReference.Doi</p>
+    <p>
+        <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await AbstractQuickViewClicked.InvokeAsync(LitReference))">
+        Quick view
+        </button>
+    </p>
+</div>
