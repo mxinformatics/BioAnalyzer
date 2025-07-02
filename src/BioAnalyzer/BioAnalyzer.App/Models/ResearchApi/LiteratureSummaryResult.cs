@@ -1,8 +1,8 @@
-namespace BioAnalyzer.App.Models;
+namespace BioAnalyzer.App.Models.ResearchApi;
 
-public class LiteratureReference
+public class LiteratureSummaryResult
 {
-    public string Id { get; set; } = string.Empty;
+    public string Uid { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     
     public string PmcId { get; set; } = string.Empty;

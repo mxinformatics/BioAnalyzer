@@ -16,4 +16,16 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
         }
         return result.IdList;
     }
+
+    public async Task<IList<LiteratureSummaryResult>> GetLiteratureSummary(IList<string> ids)
+    {
+        var requestUri = $"/literature/summary?ids={string.Join(",", ids)}";
+        var result = await httpClient.GetFromJsonAsync<IList<LiteratureSummaryResult>>(requestUri).ConfigureAwait(false);
+        if (result == null)
+        {
+            throw new InvalidOperationException("Response content is null.");
+        }
+
+        return result;
+    }
 }

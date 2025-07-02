@@ -13,6 +13,20 @@ public class SearchService(IResearchApiClient researchApiClient) : ISearchServic
             return new List<LiteratureReference>();
         }
         var literatureReferenceIds = await researchApiClient.GetLiteratureReferenceIds(criteria.SearchTerm);
-        return literatureReferenceIds.Select(refId => new LiteratureReference{ Id = refId}).ToList();
+
+        if (literatureReferenceIds.Count > 0)
+        {
+            var literatureSummaries = await researchApiClient.GetLiteratureSummary(literatureReferenceIds.ToList());
+            return literatureSummaries.Select(summary => 
+                new LiteratureReference{ Id  = summary.Uid, Title = summary.Title, Doi =  summary.Doi, PmcId = summary.PmcId}).ToList();    
+        }
+        else
+        {
+            return new List<LiteratureReference>();
+        }
+        
+        
     }
+    
+    
 }
