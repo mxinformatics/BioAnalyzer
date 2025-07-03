@@ -11,4 +11,6 @@ public interface ILiteratureSearchService
     Task<IList<EntrezSummaryResult>> GetLiteratureSummaries(IList<string> uids);
     
     Task<ArticleAbstract> GetArticleAbstractAsync(string pmCid);
+    
+    Task<LiteratureDownloadLinkResult> GetLiteratureDownloadLinkAsync(string pmCid);
 }

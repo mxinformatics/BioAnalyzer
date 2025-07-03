@@ -1,6 +1,7 @@
 using BioAnalyzer.App.Contracts.Clients;
 using BioAnalyzer.App.Contracts.Services;
 using BioAnalyzer.App.Models;
+using BioAnalyzer.App.Models.ResearchApi;
 
 namespace BioAnalyzer.App.Services;
 
@@ -31,5 +32,12 @@ public class SearchService(IResearchApiClient researchApiClient) : ISearchServic
     public async Task<LiteratureAbstract> GetAbstract(string pmcId)
     {
         return await researchApiClient.GetLiteratureAbstract(pmcId).ConfigureAwait(false);
+    }
+
+    public async Task DownloadReference(LiteratureReference reference)
+    {
+      var downloadLinkResponse = await researchApiClient.DownloadReference(reference).ConfigureAwait(false);
+     
+      // Publish event to download the file
     }
 }

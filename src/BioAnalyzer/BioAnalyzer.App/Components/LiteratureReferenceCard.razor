@@ -5,7 +5,10 @@
     <p><strong>DOI:</strong> @LitReference.Doi</p>
     <p>
         <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await AbstractQuickViewClicked.InvokeAsync(LitReference))">
-        Quick view
+            Quick view
+        </button>
+        <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await DownloadReferenceClicked.InvokeAsync(LitReference))">
+        Download
         </button>
     </p>
 </div>

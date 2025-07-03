@@ -30,4 +30,10 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
         _selectedLiteratureReference = literatureReference;
         
     }
+    
+    public void DownloadReference(LiteratureReference literatureReference)
+    {
+        _selectedLiteratureReference = literatureReference;
+        searchService.DownloadReference(literatureReference).GetAwaiter().GetResult();
+    }
 }

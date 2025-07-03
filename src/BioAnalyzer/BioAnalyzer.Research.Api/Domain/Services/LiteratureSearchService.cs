@@ -29,4 +29,17 @@ public class LiteratureSearchService(IEntrezClient client, INcbiClient ncbiClien
         };
         
     }
+
+    public  async Task<LiteratureDownloadLinkResult> GetLiteratureDownloadLinkAsync(string pmCid)
+    {
+        var response = await ncbiClient.GetLiteratureDownloadLinkAsync(pmCid).ConfigureAwait(false);
+        return new LiteratureDownloadLinkResult
+        {
+            PmcId = response.PmcId,
+            ArchiveLink = response.ArchiveLink,
+            PdfLink = response.PdfLink,
+        };
+        
+
+    }
 }
