@@ -40,4 +40,15 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
         }
         return result;
     }
+
+    public async Task<LiteratureDownloadLinkResponse> DownloadReference(LiteratureReference reference)
+    {
+        var requestUri = $"/literature/download?pmcId={reference.PmcId}";
+        var result = await httpClient.GetFromJsonAsync<LiteratureDownloadLinkResponse>(requestUri).ConfigureAwait(false);
+        if (result == null)
+        {
+            throw new InvalidOperationException("Response content is null.");
+        }
+        return result;
+    }
 }

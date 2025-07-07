@@ -9,5 +9,8 @@ public partial class LiteratureReferenceCard : ComponentBase
     
     [Parameter]
     public EventCallback<LiteratureReference> AbstractQuickViewClicked { get; set; }
+    
+    [Parameter]
+    public EventCallback<LiteratureReference> DownloadReferenceClicked { get; set; }
 
 }

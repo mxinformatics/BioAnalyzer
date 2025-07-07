@@ -11,5 +11,7 @@ public interface IResearchApiClient
     
     Task<LiteratureAbstract> GetLiteratureAbstract(string pmcId);
     
+    Task<LiteratureDownloadLinkResponse> DownloadReference(LiteratureReference reference);
+    
     
 }

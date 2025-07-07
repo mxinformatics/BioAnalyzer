@@ -12,4 +12,7 @@ builder.AddProject<Projects.BioAnalyzer_App>("researchApp")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
 
+builder.AddAzureFunctionsProject<Projects.BioAnalyzer_EventHandlers>("eventHandlers")
+    .PublishAsDockerFile();
+
 builder.Build().Run();

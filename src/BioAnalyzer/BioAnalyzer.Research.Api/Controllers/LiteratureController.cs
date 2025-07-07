@@ -35,4 +35,11 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
         var articleAbstract = await literatureSearchService.GetArticleAbstractAsync(pmcId).ConfigureAwait(false); 
         return articleAbstract;
     }
+    
+    [HttpGet("download", Name = "DownloadLiteratureReference")]
+    public async Task<LiteratureDownloadLinkResult> DownloadReference([FromQuery] string pmcId)
+    {
+        var downloadLinkResponse = await literatureSearchService.GetLiteratureDownloadLinkAsync(pmcId).ConfigureAwait(false);
+        return downloadLinkResponse;
+    }
 }
