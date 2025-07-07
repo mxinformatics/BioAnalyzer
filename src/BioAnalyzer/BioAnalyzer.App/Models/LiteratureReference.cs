@@ -8,4 +8,6 @@ public class LiteratureReference
     public string PmcId { get; set; } = string.Empty;
     
     public string Doi { get; set; } = string.Empty;
+
+    public bool CanDownload => !string.IsNullOrWhiteSpace(PmcId);
 }

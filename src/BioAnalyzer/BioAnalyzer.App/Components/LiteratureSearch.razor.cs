@@ -14,6 +14,7 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     public IList<LiteratureReference> LiteratureReferences { get; set; } = new List<LiteratureReference>();
     
     private LiteratureReference? _selectedLiteratureReference;
+    private LiteratureReference? _downloadLiteratureReference;
     
     [Inject]
     public ApplicationState ApplicationState { get; set; } = default!;
@@ -33,7 +34,6 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     
     public void DownloadReference(LiteratureReference literatureReference)
     {
-        _selectedLiteratureReference = literatureReference;
-        searchService.DownloadReference(literatureReference).GetAwaiter().GetResult();
+        _downloadLiteratureReference = literatureReference;
     }
 }

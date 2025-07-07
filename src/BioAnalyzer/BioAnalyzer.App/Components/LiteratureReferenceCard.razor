@@ -4,11 +4,15 @@
     <p><strong>PMC Id:</strong> @LitReference.PmcId</p>
     <p><strong>DOI:</strong> @LitReference.Doi</p>
     <p>
+        @if (LitReference.CanDownload)
+        {
         <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await AbstractQuickViewClicked.InvokeAsync(LitReference))">
             Quick view
         </button>
+
         <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await DownloadReferenceClicked.InvokeAsync(LitReference))">
-        Download
+            Download
         </button>
+        }
     </p>
 </div>

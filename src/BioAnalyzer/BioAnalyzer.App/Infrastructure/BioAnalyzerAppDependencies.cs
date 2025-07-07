@@ -9,6 +9,14 @@ public static class BioAnalyzerAppDependencies
     public static IServiceCollection AddBioAnalyzerAppDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         
+        services.Configure<EventConfiguration>(configuration.GetSection("Events"))
+            .PostConfigure<EventConfiguration>(config =>
+            {
+                config.ThrowIfInvalid();
+            });
+
+        services.AddScoped<IEventBusClient, EventBusClient>();
+        
         services.AddHttpClient<IResearchApiClient, ResearchApiClient>(client =>
         {
             client.BaseAddress = new Uri("https+http://researchApi");
