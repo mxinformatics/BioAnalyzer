@@ -21,7 +21,8 @@ public class DownloadRequestHandler
     }
 
     [Function(nameof(DownloadRequestHandler))]
-    public async Task Run(
+    [TableOutput("%LiteratureDownloadedTable%", Connection = "DownloadFileStorage")]
+    public async Task<DownloadedLiterature> Run(
         [ServiceBusTrigger("download-document", Connection = "BioAnalyzerServiceBus")]
         ServiceBusReceivedMessage message,
         ServiceBusMessageActions messageActions)
@@ -41,10 +42,18 @@ public class DownloadRequestHandler
             }
                     
         }
-
+        
         // Complete the message
         await messageActions.CompleteMessageAsync(message);
-        
+
+        return new DownloadedLiterature
+        {
+            FileName = $"{downloadRequest.LiteratureId}.pdf",
+            Title = downloadRequest.Title,
+            DownloadLink = downloadRequest.DownloadLink
+        };
+
+
     }
 
     private  async Task DownloadFile(DownloadRequest downloadRequest)
@@ -63,7 +72,6 @@ public class DownloadRequestHandler
             var fileContent = await response.Content.ReadAsByteArrayAsync();
             var blobServiceClient = new BlobServiceClient(_configuration.DownloadFileStorage);
             var containerClient = blobServiceClient.GetBlobContainerClient(_configuration.DownloadFileContainer);
-            // Determine file type if (tgz) extract before uploading
             var blobClient = containerClient.GetBlobClient($"{downloadRequest.LiteratureId}.pdf");
             await blobClient.UploadAsync(new BinaryData(fileContent), true);
             
