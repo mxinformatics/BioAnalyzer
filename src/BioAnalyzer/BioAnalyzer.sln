@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.App", "BioAnaly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.EventHandlers", "BioAnalyzer.EventHandlers\BioAnalyzer.EventHandlers.csproj", "{F2CC3E96-A3C3-4177-B60F-AA9A92A50C9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.AzureStorage.Contracts", "BioAnalyzer.AzureStorage.Contracts\BioAnalyzer.AzureStorage.Contracts.csproj", "{D19E42DE-2E0F-416E-B74B-5AB7972CC884}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAnalyzer.AzureStorage", "BioAnalyzer.AzureStorage\BioAnalyzer.AzureStorage.csproj", "{559B9548-2AAB-42B9-A220-DA7D1503B93C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{F2CC3E96-A3C3-4177-B60F-AA9A92A50C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2CC3E96-A3C3-4177-B60F-AA9A92A50C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2CC3E96-A3C3-4177-B60F-AA9A92A50C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19E42DE-2E0F-416E-B74B-5AB7972CC884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19E42DE-2E0F-416E-B74B-5AB7972CC884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19E42DE-2E0F-416E-B74B-5AB7972CC884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19E42DE-2E0F-416E-B74B-5AB7972CC884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559B9548-2AAB-42B9-A220-DA7D1503B93C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559B9548-2AAB-42B9-A220-DA7D1503B93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559B9548-2AAB-42B9-A220-DA7D1503B93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559B9548-2AAB-42B9-A220-DA7D1503B93C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

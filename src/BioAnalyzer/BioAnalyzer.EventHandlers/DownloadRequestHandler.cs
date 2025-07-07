@@ -1,4 +1,5 @@
 using Azure.Messaging.ServiceBus;
+using BioAnalyzer.EventHandlers.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -20,9 +21,10 @@ public class DownloadRequestHandler
         ServiceBusMessageActions messageActions)
     {
         _logger.LogInformation("Message ID: {id}", message.MessageId);
-        _logger.LogInformation("Message Body: {body}", message.Body);
-        _logger.LogInformation("Message Content-Type: {contentType}", message.ContentType);
-
+        
+        var downloadRequest = message.Body.ToObjectFromJson<DownloadRequest>();
+        var test = downloadRequest.DownloadLink;
+        
         // Complete the message
         await messageActions.CompleteMessageAsync(message);
         
