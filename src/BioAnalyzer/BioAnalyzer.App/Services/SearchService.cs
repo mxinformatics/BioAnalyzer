@@ -38,7 +38,7 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
     public async Task DownloadReference(LiteratureReference reference)
     {
       var downloadLinkResponse = await researchApiClient.DownloadReference(reference).ConfigureAwait(false);
-      var downloadRequest = new LiteratureDownloadRequest(downloadLinkResponse.PmcId, downloadLinkResponse.DownloadLink, reference.Title);
+      var downloadRequest = new LiteratureDownloadRequest(downloadLinkResponse.PmcId, downloadLinkResponse.DownloadLink, reference.Title, reference.Doi);
         if (!string.IsNullOrWhiteSpace(downloadRequest.DownloadLink))
         {
             await eventBusClient.Publish(new List<LiteratureDownloadRequest> { downloadRequest }).ConfigureAwait(false);

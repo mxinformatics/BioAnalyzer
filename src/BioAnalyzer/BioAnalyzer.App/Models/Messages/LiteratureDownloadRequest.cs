@@ -3,14 +3,17 @@ namespace BioAnalyzer.App.Models.Messages;
 public class LiteratureDownloadRequest
 {
     public LiteratureDownloadRequest() {}
-    public LiteratureDownloadRequest(string literatureId, string downloadLink, string title)
+    public LiteratureDownloadRequest(string pmcId, string downloadLink, string title, string doi)
     {
-        LiteratureId = literatureId;
+        PmcId = pmcId;
         DownloadLink = downloadLink;
         Title = title;
+        Doi = doi;
     }
-    public string LiteratureId { get; set; } = string.Empty;
+    public string PmcId { get; set; } = string.Empty;
     public string DownloadLink { get; set; } = string.Empty;
     
     public string Title { get; set; } = string.Empty;
+    
+    public string Doi { get; set; } = string.Empty;
 }

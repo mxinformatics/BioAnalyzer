@@ -29,6 +29,8 @@ public class StorageClient(ITableContext tableContext, IOptions<ResearchApiStora
                 DownloadLink = download.DownloadLink,
                 FileName = download.FileName,
                 Title = download.Title,
+                PmcId = download.PmcId,
+                Doi = download.Doi
             };
             downloadList.Add(literatureDownload);
         }
