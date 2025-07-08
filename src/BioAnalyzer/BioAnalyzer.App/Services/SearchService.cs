@@ -2,6 +2,7 @@ using BioAnalyzer.App.Contracts.Clients;
 using BioAnalyzer.App.Contracts.Services;
 using BioAnalyzer.App.Models;
 using BioAnalyzer.App.Models.Messages;
+using BioAnalyzer.App.Models.ResearchApi;
 
 
 namespace BioAnalyzer.App.Services;
@@ -48,5 +49,11 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
             throw new InvalidOperationException($"No valid download link found for literature reference {reference.Id}");
         }
      
+    }
+
+    public async Task<IList<LiteratureDownload>> GetDownloads()
+    {
+        var response =  await researchApiClient.GetDownloads().ConfigureAwait(false);
+        return response.Downloads;
     }
 }

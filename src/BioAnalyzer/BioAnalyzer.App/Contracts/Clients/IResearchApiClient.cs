@@ -13,5 +13,7 @@ public interface IResearchApiClient
     
     Task<LiteratureDownloadLinkResponse> DownloadReference(LiteratureReference reference);
     
+    Task<LiteratureDownloadsResponse> GetDownloads();
+    
     
 }

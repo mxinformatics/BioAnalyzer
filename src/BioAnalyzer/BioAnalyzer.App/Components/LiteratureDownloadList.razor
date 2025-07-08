@@ -1,0 +1,21 @@
+
+@if (!Downloads.Any())
+{
+    <p>No downloads available.</p>
+}
+else
+{
+    foreach (var literatureDownload in Downloads)
+    {
+        <div class="literature-download">
+        <ErrorBoundary>
+            <ChildContent>
+                <LiteratureDownloadCard LiteratureDownload="literatureDownload"></LiteratureDownloadCard>
+            </ChildContent>
+            <ErrorContent>
+                <p>Invalid Literature Download</p>
+            </ErrorContent>
+        </ErrorBoundary>
+        </div>
+    }
+}

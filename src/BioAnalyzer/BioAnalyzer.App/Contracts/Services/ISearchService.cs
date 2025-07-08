@@ -10,4 +10,8 @@ public interface ISearchService
     Task<LiteratureAbstract> GetAbstract(string pmcId);
     
     Task DownloadReference(LiteratureReference reference);
+    
+    Task<IList<LiteratureDownload>> GetDownloads();
+    
+    
 }

@@ -51,4 +51,16 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
         }
         return result;
     }
+
+    public async Task<LiteratureDownloadsResponse> GetDownloads()
+    {
+        var requestUri = "/literature/downloads/view";
+        var result = await httpClient.GetFromJsonAsync<LiteratureDownloadsResponse>(requestUri).ConfigureAwait(false);
+        if (result == null)
+        {
+            throw new InvalidOperationException("Response content is null.");
+        }
+
+        return result;
+    }
 }
