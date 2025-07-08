@@ -1,4 +1,4 @@
-
+@rendermode InteractiveServer
 @if (!Downloads.Any())
 {
     <p>No downloads available.</p>
@@ -10,7 +10,7 @@ else
         <div class="literature-download">
         <ErrorBoundary>
             <ChildContent>
-                <LiteratureDownloadCard LiteratureDownload="literatureDownload"></LiteratureDownloadCard>
+                <LiteratureDownloadCard LiteratureDownload="literatureDownload" DownloadFileClicked="DownloadFile"></LiteratureDownloadCard>
             </ChildContent>
             <ErrorContent>
                 <p>Invalid Literature Download</p>
@@ -19,3 +19,18 @@ else
         </div>
     }
 }
+
+<script>
+    window.downloadFileFromStream = async (fileName, contentStreamReference) => {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName ?? '';
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    }
+</script>
+

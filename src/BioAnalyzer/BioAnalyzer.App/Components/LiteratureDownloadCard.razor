@@ -1,9 +1,13 @@
 <div>
-    <h4>@LiteratureDownload.FileName</h4><DownloadReference FileName="@LiteratureDownload.FileName"></DownloadReference>
+    <h4>@LiteratureDownload.FileName</h4>
     <p><strong>Title:</strong> @LiteratureDownload.Title</p>
     <p><strong>PMC Id:</strong> @LiteratureDownload.PmcId</p>
     <p><strong>DOI: </strong> @LiteratureDownload.Doi</p>
-    <a href="downloadfile/@LiteratureDownload.FileName" target="_blank" class="btn btn-primary">View Full Text</a>
+    <button class="btn btn-primary btn-sm mb-1" @onclick="@(async () => await DownloadFileClicked.InvokeAsync(LiteratureDownload.FileName))">
+        Download
+    </button>
+    @*     Quick view *@
+    @* <a href="downloadfile/@LiteratureDownload.FileName" target="_blank" class="btn btn-primary">View Full Text</a> *@
 </div>
 
 
