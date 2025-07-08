@@ -12,4 +12,6 @@ public interface IBlobContext
     Task Upload(IEnumerable<IBlobDocument> documents, StorageContainer storageContainer);
     
     Task<string> GetDocumentText(string documentName, StorageContainer storageContainer);
+    
+    Task<ByteDocument> GetDocumentBytes(string documentName, DocumentContentType contentType, StorageContainer storageContainer);
 }

@@ -49,4 +49,10 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
         var downloadList = await literatureService.GetDownloadsAsync().ConfigureAwait(false);
         return downloadList;
     }
+
+    [HttpGet("downloads/{fileName}", Name = "DownloadFile")]
+    public async Task<byte[]> DownloadFile([FromRoute] string fileName)
+    {
+        return await literatureService.DownloadFileAsync(fileName).ConfigureAwait(false);
+    }
 }

@@ -9,4 +9,9 @@ public class LiteratureService(IStorageClient storageClient) : ILiteratureServic
     {
         return await storageClient.GetDownloadsAsync().ConfigureAwait(false);
     }
+
+    public async Task<byte[]> DownloadFileAsync(string fileName)
+    {
+        return await storageClient.DownloadFileAsync(fileName).ConfigureAwait(false);
+    }
 }
