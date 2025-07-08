@@ -1,7 +1,11 @@
+using System.Text;
 using Azure.Messaging.ServiceBus;
 using Azure.Storage.Blobs;
 using BioAnalyzer.EventHandlers.Infrastructure;
 using BioAnalyzer.EventHandlers.Models;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -78,10 +82,29 @@ public class DownloadRequestHandler
             var blobClient = containerClient.GetBlobClient($"{downloadRequest.PmcId}.pdf");
             await blobClient.UploadAsync(new BinaryData(fileContent), true);
             
+            var downloadedText = ExtractTextFromPdf(fileContent);
+            
+
         }
         else
         {
             _logger.LogError($"Failed to download file: {downloadRequest.DownloadLink}");
         }
+    }
+    
+    private static string ExtractTextFromPdf(byte[] pdfContent)
+    {
+        var pdfStream = new MemoryStream(pdfContent);
+        using var reader = new PdfReader(pdfStream);
+        using var pdfDocument = new PdfDocument(reader);
+        var text = new StringBuilder();
+        for (var i = 1; i <= pdfDocument.GetNumberOfPages(); i++)
+        {
+            var strategy = new SimpleTextExtractionStrategy();
+            var currentText = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i), strategy);
+            text.Append(Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8,
+                Encoding.Default.GetBytes(currentText))));
+        }
+        return text.ToString();
     }
 }
