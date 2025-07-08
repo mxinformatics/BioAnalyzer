@@ -12,8 +12,8 @@ resource "azurerm_storage_account" "bioanalyzer" {
 
 resource "azurerm_storage_container" "bioanalyzer" {
   name                  = "literature"
-  storage_account_id = azurerm_storage_account.bioanalyzer.id
+  storage_account_id    = azurerm_storage_account.bioanalyzer.id
   container_access_type = "private"
 
-  
+
 }

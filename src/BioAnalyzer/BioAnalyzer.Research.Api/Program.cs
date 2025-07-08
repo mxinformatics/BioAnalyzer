@@ -1,4 +1,7 @@
-using BioAnalyzer.Research.Api.Domain.Infrastructure;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using BioAnalyzer.Research.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,7 @@ builder.AddServiceDefaults();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.AddSecureConfiguration(builder.Configuration);
 builder.Services.AddResearchApiDependencies(builder.Configuration); 
 
 var app = builder.Build();

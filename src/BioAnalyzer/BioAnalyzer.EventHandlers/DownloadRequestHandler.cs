@@ -48,9 +48,12 @@ public class DownloadRequestHandler
 
         return new DownloadedLiterature
         {
-            FileName = $"{downloadRequest.LiteratureId}.pdf",
+            FileName = $"{downloadRequest.PmcId}.pdf",
             Title = downloadRequest.Title,
-            DownloadLink = downloadRequest.DownloadLink
+            DownloadLink = downloadRequest.DownloadLink,
+            Doi = downloadRequest.Doi,
+            PmcId = downloadRequest.PmcId
+            
         };
 
 
@@ -72,7 +75,7 @@ public class DownloadRequestHandler
             var fileContent = await response.Content.ReadAsByteArrayAsync();
             var blobServiceClient = new BlobServiceClient(_configuration.DownloadFileStorage);
             var containerClient = blobServiceClient.GetBlobContainerClient(_configuration.DownloadFileContainer);
-            var blobClient = containerClient.GetBlobClient($"{downloadRequest.LiteratureId}.pdf");
+            var blobClient = containerClient.GetBlobClient($"{downloadRequest.PmcId}.pdf");
             await blobClient.UploadAsync(new BinaryData(fileContent), true);
             
         }

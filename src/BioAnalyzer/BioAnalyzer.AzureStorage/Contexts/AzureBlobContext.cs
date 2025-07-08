@@ -78,6 +78,25 @@ public class AzureBlobContext(IAzureStorageConfiguration configuration) : IBlobC
         return await DownloadDocumentText(documentName, storageContainer).ConfigureAwait(false);
     }
 
+    public async Task<ByteDocument> GetDocumentBytes(string documentName, DocumentContentType contentType, StorageContainer storageContainer)
+    {
+        try
+        {
+            var documentBlobClient = GetDocumentBlobClient(documentName, storageContainer);
+            var response = await documentBlobClient.DownloadContentAsync().ConfigureAwait(false);
+            return new ByteDocument(documentName, contentType, response.Value.Content.ToArray());
+        }
+        catch (RequestFailedException ex)
+        {
+            if (IsNotFoundException(ex))
+            {
+                throw new BlobNotFoundException(string.Format(DocumentResources.DocumentNotFound, documentName));
+            }
+
+            throw;
+        }
+    }
+
 
     /// <summary>
     /// Retrieve the text of a document from the specified container.

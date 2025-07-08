@@ -2,6 +2,7 @@ using BioAnalyzer.App.Contracts.Clients;
 using BioAnalyzer.App.Contracts.Services;
 using BioAnalyzer.App.Models;
 using BioAnalyzer.App.Models.Messages;
+using BioAnalyzer.App.Models.ResearchApi;
 
 
 namespace BioAnalyzer.App.Services;
@@ -38,7 +39,7 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
     public async Task DownloadReference(LiteratureReference reference)
     {
       var downloadLinkResponse = await researchApiClient.DownloadReference(reference).ConfigureAwait(false);
-      var downloadRequest = new LiteratureDownloadRequest(downloadLinkResponse.PmcId, downloadLinkResponse.DownloadLink, reference.Title);
+      var downloadRequest = new LiteratureDownloadRequest(downloadLinkResponse.PmcId, downloadLinkResponse.DownloadLink, reference.Title, reference.Doi);
         if (!string.IsNullOrWhiteSpace(downloadRequest.DownloadLink))
         {
             await eventBusClient.Publish(new List<LiteratureDownloadRequest> { downloadRequest }).ConfigureAwait(false);
@@ -48,5 +49,16 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
             throw new InvalidOperationException($"No valid download link found for literature reference {reference.Id}");
         }
      
+    }
+
+    public async Task<IList<LiteratureDownload>> GetDownloads()
+    {
+        var response =  await researchApiClient.GetDownloads().ConfigureAwait(false);
+        return response.Downloads;
+    }
+
+    public async Task<byte[]> DownloadFile(string fileName)
+    {
+        return await researchApiClient.DownloadFile(fileName).ConfigureAwait(false);
     }
 }

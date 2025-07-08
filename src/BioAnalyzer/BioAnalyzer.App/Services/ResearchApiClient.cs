@@ -51,4 +51,23 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
         }
         return result;
     }
+
+    public async Task<LiteratureDownloadsResponse> GetDownloads()
+    {
+        var requestUri = "/literature/downloads/view";
+        var result = await httpClient.GetFromJsonAsync<LiteratureDownloadsResponse>(requestUri).ConfigureAwait(false);
+        if (result == null)
+        {
+            throw new InvalidOperationException("Response content is null.");
+        }
+
+        return result;
+    }
+
+    public async Task<byte[]> DownloadFile(string fileName)
+    {
+        var requestUri = $"/literature/downloads/{fileName}";
+        var result = await httpClient.GetByteArrayAsync(requestUri).ConfigureAwait(false);
+        return result;
+    }
 }

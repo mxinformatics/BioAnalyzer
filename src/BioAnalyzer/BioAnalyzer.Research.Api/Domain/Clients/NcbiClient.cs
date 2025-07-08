@@ -1,5 +1,6 @@
 using System.Xml;
 using BioAnalyzer.Research.Api.Domain.Models;
+using BioAnalyzer.Research.Api.Infrastructure;
 using Microsoft.Extensions.Options;
 
 namespace BioAnalyzer.Research.Api.Domain.Clients;
