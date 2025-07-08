@@ -6,7 +6,7 @@ namespace BioAnalyzer.Research.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LiteratureController(ILiteratureSearchService literatureSearchService) : ControllerBase
+public class LiteratureController(ILiteratureSearchService literatureSearchService, ILiteratureService literatureService) : ControllerBase
 {
 
     
@@ -41,5 +41,12 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     {
         var downloadLinkResponse = await literatureSearchService.GetLiteratureDownloadLinkAsync(pmcId).ConfigureAwait(false);
         return downloadLinkResponse;
+    }
+    
+    [HttpGet("downloads/view", Name = "ViewDownloads")]
+    public async Task<LiteratureDownloadList> ViewDownloads()
+    {
+        var downloadList = await literatureService.GetDownloadsAsync().ConfigureAwait(false);
+        return downloadList;
     }
 }

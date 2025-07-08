@@ -30,10 +30,16 @@ variable "subscription_id" {
 
 }
 
+variable "tenant_id" {
+  type        = string
+  description = "Azure Tenant ID"
+
+}
+
 variable "key_vault_name" {
   type        = string
   description = "Key Vault name"
-  default     = "kv-mxinfo-bioanalyzer-poc"
+  default     = "kv-mxinfo-bioanalyze-poc"
 }
 
 

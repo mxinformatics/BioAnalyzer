@@ -1,4 +1,4 @@
-namespace BioAnalyzer.Research.Api.Domain.Models;
+namespace BioAnalyzer.Research.Api.Infrastructure;
 
 public class ResearchApiConfiguration
 {
