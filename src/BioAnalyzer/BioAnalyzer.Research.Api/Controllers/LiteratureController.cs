@@ -51,8 +51,10 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
 
     [HttpGet("downloads/{fileName}", Name = "DownloadFile")]
-    public async Task<byte[]> DownloadFile([FromRoute] string fileName)
+    public async Task<FileContentResult> DownloadFile([FromRoute] string fileName)
     {
-        return await literatureService.DownloadFileAsync(fileName).ConfigureAwait(false);
+        var fileBytes = await literatureService.DownloadFileAsync(fileName).ConfigureAwait(false);
+        return new FileContentResult(fileBytes, System.Net.Mime.MediaTypeNames.Application.Pdf);
+        
     }
 }

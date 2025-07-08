@@ -56,4 +56,9 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
         var response =  await researchApiClient.GetDownloads().ConfigureAwait(false);
         return response.Downloads;
     }
+
+    public async Task<byte[]> DownloadFile(string fileName)
+    {
+        return await researchApiClient.DownloadFile(fileName).ConfigureAwait(false);
+    }
 }

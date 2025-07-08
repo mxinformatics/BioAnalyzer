@@ -63,4 +63,11 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
 
         return result;
     }
+
+    public async Task<byte[]> DownloadFile(string fileName)
+    {
+        var requestUri = $"/literature/downloads/{fileName}";
+        var result = await httpClient.GetByteArrayAsync(requestUri).ConfigureAwait(false);
+        return result;
+    }
 }

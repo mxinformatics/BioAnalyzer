@@ -33,6 +33,12 @@ public static class ResearchApiDependencies
             var storageConfig = provider.GetRequiredService<IOptions<ResearchApiStorageConfiguration>>().Value;
             return new AzureTableContext(storageConfig);
         });
+
+        services.AddScoped<IBlobContext, AzureBlobContext>((provider) =>
+        {
+            var storageConfig = provider.GetRequiredService<IOptions<ResearchApiStorageConfiguration>>().Value;
+            return new AzureBlobContext(storageConfig);
+        });
         services.AddScoped<IStorageClient, StorageClient>();
         
         services.AddScoped<ILiteratureSearchService, LiteratureSearchService>();

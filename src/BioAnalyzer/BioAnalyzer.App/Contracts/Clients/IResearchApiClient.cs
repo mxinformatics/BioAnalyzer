@@ -15,5 +15,6 @@ public interface IResearchApiClient
     
     Task<LiteratureDownloadsResponse> GetDownloads();
     
+    Task<byte[]> DownloadFile(string fileName);
     
 }

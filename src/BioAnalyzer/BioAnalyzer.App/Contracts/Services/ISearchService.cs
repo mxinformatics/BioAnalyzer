@@ -13,5 +13,6 @@ public interface ISearchService
     
     Task<IList<LiteratureDownload>> GetDownloads();
     
+    Task<byte[]> DownloadFile(string fileName);
     
 }

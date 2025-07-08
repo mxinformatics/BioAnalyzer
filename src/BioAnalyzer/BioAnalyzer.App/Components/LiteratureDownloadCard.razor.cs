@@ -6,4 +6,6 @@ namespace BioAnalyzer.App.Components;
 public partial class LiteratureDownloadCard : ComponentBase
 {
     [Parameter] public LiteratureDownload LiteratureDownload { get; set; } = null!;
+    
+    
 }
