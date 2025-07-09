@@ -81,10 +81,6 @@ public class DownloadRequestHandler
             var containerClient = blobServiceClient.GetBlobContainerClient(_configuration.DownloadFileContainer);
             var blobClient = containerClient.GetBlobClient($"{downloadRequest.PmcId}.pdf");
             await blobClient.UploadAsync(new BinaryData(fileContent), true);
-            
-         //   var downloadedText = ExtractTextFromPdf(fileContent);
-            
-
         }
         else
         {
@@ -92,19 +88,5 @@ public class DownloadRequestHandler
         }
     }
     
-    // private static string ExtractTextFromPdf(byte[] pdfContent)
-    // {
-    //     var pdfStream = new MemoryStream(pdfContent);
-    //     using var reader = new PdfReader(pdfStream);
-    //     using var pdfDocument = new PdfDocument(reader);
-    //     var text = new StringBuilder();
-    //     for (var i = 1; i <= pdfDocument.GetNumberOfPages(); i++)
-    //     {
-    //         var strategy = new SimpleTextExtractionStrategy();
-    //         var currentText = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i), strategy);
-    //         text.Append(Encoding.UTF8.GetString(Encoding.Convert(Encoding.Default, Encoding.UTF8,
-    //             Encoding.Default.GetBytes(currentText))));
-    //     }
-    //     return text.ToString();
-    // }
+
 }
