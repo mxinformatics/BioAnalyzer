@@ -9,6 +9,8 @@ public class DownloadRequest
     
     public string Doi { get; set; } = string.Empty;
     
+    public bool IsPdf  => !string.IsNullOrEmpty(DownloadLink) && DownloadLink.EndsWith("pdf"); 
+    public string UploadedFilename => $"{PmcId}.pdf";
     public string GetHttpDownloadLink()
     {
         return !string.IsNullOrEmpty(DownloadLink) ? DownloadLink.Replace("ftp://", "https://") : DownloadLink;
