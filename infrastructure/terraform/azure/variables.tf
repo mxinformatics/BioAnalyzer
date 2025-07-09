@@ -52,4 +52,3 @@ variable "azure_storage_account_name" {
 
 
 
-

@@ -102,7 +102,7 @@ public class DownloadRequestHandler
         {
             var strategy = new SimpleTextExtractionStrategy();
             var currentText = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i), strategy);
-            text.Append(Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8,
+            text.Append(Encoding.UTF8.GetString(Encoding.Convert(Encoding.Default, Encoding.UTF8,
                 Encoding.Default.GetBytes(currentText))));
         }
         return text.ToString();
