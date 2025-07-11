@@ -8,10 +8,10 @@ namespace BioAnalyzer.Research.Api.Controllers;
 [Route("[controller]")]
 public class LiteratureController(ILiteratureSearchService literatureSearchService, ILiteratureService literatureService) : ControllerBase
 {
-
+    private const string DefaultContentType = "application/json";
     
     [HttpGet(Name = "SearchLiterature")]
-    [ProducesResponseType(typeof(EntrezSearchResult), 200)]
+    [ProducesResponseType(typeof(EntrezSearchResult), 200, contentType: DefaultContentType)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
     public async Task<IActionResult> Search(string query)
@@ -25,7 +25,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("summary", Name = "GetLiteratureSummary")]
-    [ProducesResponseType(typeof(IList<EntrezSummaryResult>), 200)]
+    [ProducesResponseType(typeof(IList<EntrezSummaryResult>), 200, contentType: DefaultContentType)]
     [ProducesResponseType(500)]
     public async Task<IList<EntrezSummaryResult>> GetSummary([FromQuery] IList<string> ids)
     {
@@ -39,7 +39,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("abstract", Name = "GetLiteratureAbstract")]
-    [ProducesResponseType(typeof(ArticleAbstract), 200)]
+    [ProducesResponseType(typeof(ArticleAbstract), 200, contentType: DefaultContentType)]
     [ProducesResponseType(500)]
     public async Task<ArticleAbstract> GetAbstract([FromQuery] string pmcId)
     {
@@ -48,7 +48,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("download", Name = "DownloadLiteratureReference")]
-    [ProducesResponseType(typeof(LiteratureDownloadLinkResult), 200)]
+    [ProducesResponseType(typeof(LiteratureDownloadLinkResult), 200, contentType: DefaultContentType)]
     [ProducesResponseType(500)]
     public async Task<LiteratureDownloadLinkResult> DownloadReference([FromQuery] string pmcId)
     {
@@ -57,7 +57,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("downloads/view", Name = "ViewDownloads")]
-    [ProducesResponseType(typeof(LiteratureDownloadList), 200)]
+    [ProducesResponseType(typeof(LiteratureDownloadList), 200, contentType: DefaultContentType)]
     [ProducesResponseType(500)]
     public async Task<LiteratureDownloadList> ViewDownloads()
     {
@@ -66,7 +66,7 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
 
     [HttpGet("downloads/{fileName}", Name = "DownloadFile")]
-    [ProducesResponseType(typeof(FileContentResult), 200)]
+    [ProducesResponseType(typeof(FileContentResult), 200, contentType: DefaultContentType)]
     [ProducesResponseType(500)]
     public async Task<FileContentResult> DownloadFile([FromRoute] string fileName)
     {
