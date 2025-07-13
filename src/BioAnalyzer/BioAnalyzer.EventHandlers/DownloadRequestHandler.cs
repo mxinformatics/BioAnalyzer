@@ -1,14 +1,10 @@
 using System.Formats.Tar;
 using System.IO.Compression;
-using System.Text;
 using Azure.Messaging.ServiceBus;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using BioAnalyzer.EventHandlers.Infrastructure;
 using BioAnalyzer.EventHandlers.Models;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas.Parser;
-using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 

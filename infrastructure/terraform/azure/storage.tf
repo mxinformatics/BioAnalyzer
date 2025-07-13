@@ -15,5 +15,10 @@ resource "azurerm_storage_container" "bioanalyzer" {
   storage_account_id    = azurerm_storage_account.bioanalyzer.id
   container_access_type = "private"
 
+}
 
+resource "azurerm_storage_container" "bioanalyzer_extracted" {
+  name                  = "extractedtext"
+  storage_account_id    = azurerm_storage_account.bioanalyzer.id
+  container_access_type = "blob"
 }

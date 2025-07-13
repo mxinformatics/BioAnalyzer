@@ -33,7 +33,14 @@ locals {
           name = "process-extracted-text"
         }
       }
-
+    }
+    embeddings_genereated = {
+      name = "embeddings-generated"
+      queues = {
+        process_embeddings = {
+          name = "process-embeddings"
+        }
+      }
     }
   }
   # download_request = {
