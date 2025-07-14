@@ -15,13 +15,16 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     
     private LiteratureReference? _selectedLiteratureReference;
     private LiteratureReference? _downloadLiteratureReference;
+    private bool _searchInProgress = false;
     
     [Inject]
     public ApplicationState ApplicationState { get; set; } = default!;
     private async Task OnSubmit()
     {
         LiteratureReferences.Clear();
+        _searchInProgress = true;
         var references = await searchService.Search(SearchCriteria).ConfigureAwait(false);
+        _searchInProgress = false;
         LiteratureReferences = references;
         
     }
