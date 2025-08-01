@@ -19,8 +19,16 @@ public static class ResearchApiDependencies
                 config.ThrowIfInvalid();
             });
         
+        services.Configure<OpenAiConfiguration>(configuration.GetSection("OpenAiConfiguration"))
+            .PostConfigure<OpenAiConfiguration>(config =>
+            {
+                config.ThrowIfInvalid();
+            });
+        
         services.AddHttpClient<IEntrezClient, EntrezClient>();
         services.AddHttpClient<INcbiClient, NcbiClient>();
+        services.AddScoped<IAiClient, AiClient>();
+        services.AddScoped<IAIQueryService, AIQueryService>();
 
         services.Configure<ResearchApiStorageConfiguration>(configuration.GetSection("ResearchStorage"))
             .PostConfigure<ResearchApiStorageConfiguration>(config =>
