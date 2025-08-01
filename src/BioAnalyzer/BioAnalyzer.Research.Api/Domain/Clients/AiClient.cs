@@ -30,13 +30,10 @@ public class AiClient(IOptions<OpenAiConfiguration> configuration) : IAiClient
 
     private async Task<string> QueryDocuments(string query, CancellationToken cancellationToken = default)
     {
-        var apiKey = _configuration.SearchApiKey;
-
-       
         var searchClient = new SearchClient(
             new Uri(_configuration.SearchEndpoint),
             _configuration.SearchIndexName, 
-            new AzureKeyCredential(apiKey)
+            new AzureKeyCredential(_configuration.SearchApiKey)
         );
         
         var searchOptions = new SearchOptions
@@ -50,7 +47,6 @@ public class AiClient(IOptions<OpenAiConfiguration> configuration) : IAiClient
         await foreach (var result in searchResults.Value.GetResultsAsync())
         {
             var doc = result.Document;
-            // Format each result as: HotelName:Description:Tags
             sources.Add(doc["title"] + ": " + doc["content"] + ": " + doc["url"]);
         }
 
@@ -63,16 +59,24 @@ public class AiClient(IOptions<OpenAiConfiguration> configuration) : IAiClient
         var openAiClient = new AzureOpenAIClient(new Uri(_configuration.Endpoint), new ApiKeyCredential(_configuration.OpenAiApiKey));
         var chatClient = openAiClient.GetChatClient(_configuration.GptName);
         
-        var prompt = $@"You are an experienced biological research with deep molecular biology knowledge.
-            Answer the query using only the sources provided below in a friendly and concise bulleted manner
-            Answer ONLY with the facts listed in the list of sources below.
-            If there isn't enough information below, say you don't know.
-            Do not generate answers that don't use the sources below.
-            Query: {query}
-            Sources: {sources}";
+        var prompt = $"""
+                      You are an experienced biological research with deep molecular biology knowledge.
+                                  Answer the query using only the sources provided below in a friendly and concise bulleted manner
+                                  Answer ONLY with the facts listed in the list of sources below.
+                                  If there isn't enough information below, say you don't know.
+                                  Do not generate answers that don't use the sources below.
+                                  Query: {query}
+                                  Sources: {sources}
+                      """;
         
         var chatUpdates = chatClient.CompleteChatStreamingAsync(
-            [ new UserChatMessage(prompt) ], cancellationToken: cancellationToken);
+            [ new UserChatMessage(prompt) ], 
+            new ChatCompletionOptions
+            {
+              Temperature  = 0.0f,
+              MaxOutputTokenCount = 1000
+            },
+            cancellationToken: cancellationToken);
         
         var response = new StringBuilder(500);
         await foreach (var chatUpdate in chatUpdates)
