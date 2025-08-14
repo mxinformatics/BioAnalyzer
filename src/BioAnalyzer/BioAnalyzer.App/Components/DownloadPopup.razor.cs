@@ -14,12 +14,11 @@ public partial class DownloadPopup(ISearchService searchService) : ComponentBase
     {
         _literatureReference = LiteratureReference;
         if (_literatureReference is not { CanDownload: true }) return;
-        
         searchService.DownloadReference(_literatureReference).ConfigureAwait(false).GetAwaiter().GetResult();
-        _literatureReference = null;
-
+        
     }
-
+    
+    
     public void Close()
     {
         _literatureReference = null;

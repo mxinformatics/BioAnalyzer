@@ -8,16 +8,25 @@ namespace BioAnalyzer.Research.Api.Controllers;
 [Route("[controller]")]
 public class LiteratureController(ILiteratureSearchService literatureSearchService, ILiteratureService literatureService) : ControllerBase
 {
-
+    private const string DefaultContentType = "application/json";
     
     [HttpGet(Name = "SearchLiterature")]
-    public async Task<EntrezSearchResult> Search(string query)
+    [ProducesResponseType(typeof(EntrezSearchResult), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> Search(string query)
     {
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return BadRequest("Query cannot be null or empty.");
+        }
         var result = await literatureSearchService.SearchLiteratureAsync(query).ConfigureAwait(false);
-        return result;
+        return Ok(result);
     }
     
     [HttpGet("summary", Name = "GetLiteratureSummary")]
+    [ProducesResponseType(typeof(IList<EntrezSummaryResult>), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(500)]
     public async Task<IList<EntrezSummaryResult>> GetSummary([FromQuery] IList<string> ids)
     {
         if (!ids.Any())
@@ -30,6 +39,8 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("abstract", Name = "GetLiteratureAbstract")]
+    [ProducesResponseType(typeof(ArticleAbstract), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(500)]
     public async Task<ArticleAbstract> GetAbstract([FromQuery] string pmcId)
     {
         var articleAbstract = await literatureSearchService.GetArticleAbstractAsync(pmcId).ConfigureAwait(false); 
@@ -37,6 +48,8 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("download", Name = "DownloadLiteratureReference")]
+    [ProducesResponseType(typeof(LiteratureDownloadLinkResult), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(500)]
     public async Task<LiteratureDownloadLinkResult> DownloadReference([FromQuery] string pmcId)
     {
         var downloadLinkResponse = await literatureSearchService.GetLiteratureDownloadLinkAsync(pmcId).ConfigureAwait(false);
@@ -44,6 +57,8 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
     
     [HttpGet("downloads/view", Name = "ViewDownloads")]
+    [ProducesResponseType(typeof(LiteratureDownloadList), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(500)]
     public async Task<LiteratureDownloadList> ViewDownloads()
     {
         var downloadList = await literatureService.GetDownloadsAsync().ConfigureAwait(false);
@@ -51,6 +66,8 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     }
 
     [HttpGet("downloads/{fileName}", Name = "DownloadFile")]
+    [ProducesResponseType(typeof(FileContentResult), 200, contentType: DefaultContentType)]
+    [ProducesResponseType(500)]
     public async Task<FileContentResult> DownloadFile([FromRoute] string fileName)
     {
         var fileBytes = await literatureService.DownloadFileAsync(fileName).ConfigureAwait(false);
