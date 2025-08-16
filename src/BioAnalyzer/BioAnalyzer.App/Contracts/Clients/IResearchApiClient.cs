@@ -5,7 +5,7 @@ namespace BioAnalyzer.App.Contracts.Clients;
 
 public interface IResearchApiClient
 {
-    Task<ICollection<string>> GetLiteratureReferenceIds(string searchTerm);
+    Task<LiteratureSearchResult> GetLiteratureReferences(string searchTerm);
 
     Task<IList<LiteratureSummaryResult>> GetLiteratureSummary(IList<string> ids);
     

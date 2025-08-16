@@ -5,7 +5,7 @@ namespace BioAnalyzer.App.Contracts.Services;
 
 public interface ISearchService
 {
-    Task<IList<LiteratureReference>> Search(SearchCriteria criteria);
+    Task<LiteratureReferenceList> Search(SearchCriteria criteria);
     
     Task<LiteratureAbstract> GetAbstract(string pmcId);
     

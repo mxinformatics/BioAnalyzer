@@ -7,7 +7,7 @@ namespace BioAnalyzer.App.Services;
 
 public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
 {
-    public async Task<ICollection<string>> GetLiteratureReferenceIds(string searchTerm)
+    public async Task<LiteratureSearchResult> GetLiteratureReferences(string searchTerm)
     {
         var requestUri = $"/literature?query={Uri.EscapeDataString(searchTerm)}";
         var result = await httpClient.GetFromJsonAsync<LiteratureSearchResponse>(requestUri).ConfigureAwait(false);
@@ -15,7 +15,16 @@ public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
         {
             throw new InvalidOperationException("Response content is null.");
         }
-        return result.IdList;
+
+        return new LiteratureSearchResult
+        {
+            Count = result.Count,
+            ReferenceIds = result.IdList,
+            RetMax = result.RetMax,
+            RetStart = result.RetStart
+
+        };
+
     }
 
     public async Task<IList<LiteratureSummaryResult>> GetLiteratureSummary(IList<string> ids)

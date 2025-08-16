@@ -9,23 +9,31 @@ namespace BioAnalyzer.App.Services;
 
 public class SearchService(IResearchApiClient researchApiClient, IEventBusClient eventBusClient) : ISearchService
 {
-    public async Task<IList<LiteratureReference>> Search(SearchCriteria criteria)
+    public async Task<LiteratureReferenceList> Search(SearchCriteria criteria)
     {
         if (string.IsNullOrWhiteSpace(criteria.SearchTerm))
         {
-            return new List<LiteratureReference>();
+            return new LiteratureReferenceList();
         }
-        var literatureReferenceIds = await researchApiClient.GetLiteratureReferenceIds(criteria.SearchTerm);
+        var searchResult = await researchApiClient.GetLiteratureReferences(criteria.SearchTerm);
 
-        if (literatureReferenceIds.Count > 0)
+        if (searchResult.Count > 0)
         {
-            var literatureSummaries = await researchApiClient.GetLiteratureSummary(literatureReferenceIds.ToList());
-            return literatureSummaries.Select(summary => 
-                new LiteratureReference{ Id  = summary.Uid, Title = summary.Title, Doi =  summary.Doi, PmcId = summary.PmcId}).ToList();    
+            var literatureSummaries = await researchApiClient.GetLiteratureSummary(searchResult.ReferenceIds.ToList());
+            var references = literatureSummaries.Select(summary => 
+                new LiteratureReference{ Id  = summary.Uid, Title = summary.Title, Doi =  summary.Doi, PmcId = summary.PmcId}).ToList();
+            return new LiteratureReferenceList
+            {
+                Count = searchResult.Count,
+                RetMax = searchResult.RetMax,
+                RetStart = searchResult.RetStart,
+                References = references
+
+            };
         }
         else
         {
-            return new List<LiteratureReference>();
+            return new LiteratureReferenceList();
         }
         
         

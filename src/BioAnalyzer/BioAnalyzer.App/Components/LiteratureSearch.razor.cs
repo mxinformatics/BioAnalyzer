@@ -23,9 +23,9 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     {
         LiteratureReferences.Clear();
         _searchInProgress = true;
-        var references = await searchService.Search(SearchCriteria).ConfigureAwait(false);
+        var referenceList = await searchService.Search(SearchCriteria).ConfigureAwait(false);
         _searchInProgress = false;
-        LiteratureReferences = references;
+        LiteratureReferences = referenceList.References.ToList();
         
     }
     
