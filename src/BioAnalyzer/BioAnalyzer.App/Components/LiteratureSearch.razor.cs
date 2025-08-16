@@ -1,5 +1,6 @@
 using BioAnalyzer.App.Contracts.Services;
 using BioAnalyzer.App.Models;
+using BioAnalyzer.App.Models.ResearchApi;
 using BioAnalyzer.App.State;
 using Microsoft.AspNetCore.Components;
 
@@ -11,7 +12,7 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     [SupplyParameterFromForm]
     public SearchCriteria SearchCriteria { get; set; } = new SearchCriteria();
 
-    public IList<LiteratureReference> LiteratureReferences { get; set; } = new List<LiteratureReference>();
+    public LiteratureReferenceList SearchResults { get; set; } = new LiteratureReferenceList();
     
     private LiteratureReference? _selectedLiteratureReference;
     private LiteratureReference? _downloadLiteratureReference;
@@ -21,11 +22,11 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     public ApplicationState ApplicationState { get; set; } = default!;
     private async Task OnSubmit()
     {
-        LiteratureReferences.Clear();
+        SearchResults = new LiteratureReferenceList();
         _searchInProgress = true;
         var referenceList = await searchService.Search(SearchCriteria).ConfigureAwait(false);
         _searchInProgress = false;
-        LiteratureReferences = referenceList.References.ToList();
+        SearchResults = referenceList;
         
     }
     

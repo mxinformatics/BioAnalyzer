@@ -24,12 +24,15 @@
         <p><em>Searching...</em></p>
     </div>    
 }
+<div id="searchResultsSummary">
+    <SearchResultHeader SearchResults="SearchResults"></SearchResultHeader>
+</div>
 <div id="searchResults">
     <AbstractPopup LiteratureReference="_selectedLiteratureReference"></AbstractPopup>
     <DownloadPopup LiteratureReference="_downloadLiteratureReference"></DownloadPopup>
-    @if (LiteratureReferences.Any())
+    @if (SearchResults.References.Any())
     {
-        foreach (var reference in LiteratureReferences)
+        foreach (var reference in SearchResults.References)
         {
             <div class="literature-reference">
                 <ErrorBoundary>
