@@ -15,7 +15,7 @@ public class SearchService(IResearchApiClient researchApiClient, IEventBusClient
         {
             return new LiteratureReferenceList();
         }
-        var searchResult = await researchApiClient.GetLiteratureReferences(criteria.SearchTerm);
+        var searchResult = await researchApiClient.GetLiteratureReferences(criteria.SearchTerm, criteria.StartIndex);
 
         if (searchResult.Count > 0)
         {

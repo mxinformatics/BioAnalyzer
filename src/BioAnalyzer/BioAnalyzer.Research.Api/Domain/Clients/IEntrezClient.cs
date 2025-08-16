@@ -7,7 +7,7 @@ namespace BioAnalyzer.Research.Api.Domain.Clients;
 /// </summary>
 public interface IEntrezClient
 {
-    Task<EntrezSearchResult> LiteratureSearchAsync(string query);
+    Task<EntrezSearchResult> LiteratureSearchAsync(string query, int startIndex);
     
     Task<EntrezSummaryResponse> LiteratureSummaryAsync(IList<string> uids);
 }

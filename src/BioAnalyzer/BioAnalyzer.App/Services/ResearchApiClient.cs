@@ -7,9 +7,9 @@ namespace BioAnalyzer.App.Services;
 
 public class ResearchApiClient(HttpClient httpClient) : IResearchApiClient
 {
-    public async Task<LiteratureSearchResult> GetLiteratureReferences(string searchTerm)
+    public async Task<LiteratureSearchResult> GetLiteratureReferences(string searchTerm, int index)
     {
-        var requestUri = $"/literature?query={Uri.EscapeDataString(searchTerm)}";
+        var requestUri = $"/literature?query={Uri.EscapeDataString(searchTerm)}&startIndex={index}";
         var result = await httpClient.GetFromJsonAsync<LiteratureSearchResponse>(requestUri).ConfigureAwait(false);
         if (result == null)
         {

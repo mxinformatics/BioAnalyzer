@@ -22,14 +22,25 @@ public partial class LiteratureSearch(ISearchService searchService) : ComponentB
     public ApplicationState ApplicationState { get; set; } = default!;
     private async Task OnSubmit()
     {
+        SearchCriteria.StartIndex = 0;
+        await Search();
+    }
+
+    private async Task Search()
+    {
         SearchResults = new LiteratureReferenceList();
         _searchInProgress = true;
         var referenceList = await searchService.Search(SearchCriteria).ConfigureAwait(false);
         _searchInProgress = false;
         SearchResults = referenceList;
-        
     }
-    
+
+
+    public async Task SearchNext()
+    {
+        SearchCriteria.StartIndex += 20;
+        await Search();
+    }
     public void ShowAbstractPopup(LiteratureReference literatureReference)
     {
         _selectedLiteratureReference = literatureReference;

@@ -8,9 +8,9 @@ namespace BioAnalyzer.Research.Api.Domain.Services;
 /// </summary>
 public class LiteratureSearchService(IEntrezClient client, INcbiClient ncbiClient) : ILiteratureSearchService
 {
-    public async Task<EntrezSearchResult> SearchLiteratureAsync(string query)
+    public async Task<EntrezSearchResult> SearchLiteratureAsync(string query, int startIndex)
     {
-        return await client.LiteratureSearchAsync(query).ConfigureAwait(false);
+        return await client.LiteratureSearchAsync(query, startIndex).ConfigureAwait(false);
     }
 
     public async Task<IList<EntrezSummaryResult>> GetLiteratureSummaries(IList<string> uids)

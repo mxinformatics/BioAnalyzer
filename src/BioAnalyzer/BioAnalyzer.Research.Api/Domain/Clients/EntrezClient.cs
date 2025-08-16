@@ -16,9 +16,9 @@ public class EntrezClient(HttpClient httpClient, IOptions<ResearchApiConfigurati
     private readonly HttpClient _httpClient = httpClient;
     private readonly ResearchApiConfiguration _configuration = options.Value;
 
-    public async Task<EntrezSearchResult> LiteratureSearchAsync(string query)
+    public async Task<EntrezSearchResult> LiteratureSearchAsync(string query, int startIndex)
     {
-        var requestUri = $"{_configuration.EntrezBaseUrl}/esearch.fcgi?db=pubmed&term={Uri.EscapeDataString(query)}&retmode=json";
+        var requestUri = $"{_configuration.EntrezBaseUrl}/esearch.fcgi?db=pubmed&term={Uri.EscapeDataString(query)}&retmode=json&retstart={startIndex}";
         var result = await _httpClient.GetAsync(requestUri).ConfigureAwait(false);
         if (!result.IsSuccessStatusCode)
         {

@@ -14,13 +14,13 @@ public class LiteratureController(ILiteratureSearchService literatureSearchServi
     [ProducesResponseType(typeof(EntrezSearchResult), 200, contentType: DefaultContentType)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public async Task<IActionResult> Search(string query)
+    public async Task<IActionResult> Search(string query, int startIndex)
     {
         if (string.IsNullOrWhiteSpace(query))
         {
             return BadRequest("Query cannot be null or empty.");
         }
-        var result = await literatureSearchService.SearchLiteratureAsync(query).ConfigureAwait(false);
+        var result = await literatureSearchService.SearchLiteratureAsync(query, startIndex).ConfigureAwait(false);
         return Ok(result);
     }
     
